@@ -11,7 +11,7 @@ v1.get('/', (req, res) => {
     });
 });
 
-v1.use('/user', user);
+v1.use('/users', user);
 
 
 
