@@ -2,6 +2,7 @@ const express = require('express');
 const v1 = express();
 
 const user = require('./user');
+const token = require('./token');
 
 
 
@@ -12,6 +13,7 @@ v1.get('/', (req, res) => {
 });
 
 v1.use('/users', user);
+v1.use('/token', token);
 
 
 
