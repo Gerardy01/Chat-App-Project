@@ -106,21 +106,30 @@ class UserController {
 
     static async login(req, res, next) {
         try{
-            
-            const user = await User.find(
-                { email: req.body.email }
-            )
 
-            if (user.length === 0) {
-                return res.status(403).json({
-                    result: 'failed',
-                    msg: 'email does not exists'
-                })
+            const isEmail = validator.validate(req.body.user);
+
+            let user;
+
+            if (isEmail) {
+                user = await User.findOne(
+                    { email: req.body.user }
+                )
+            } else {
+                user = await User.findOne(
+                    { username: req.body.user }
+                )
             }
 
-            bcrypt.compare(req.body.password, user[0].password, function(err, result) {
+            if (!user) {
+                return res.status(403).json({
+                    result: 'failed',
+                    msg: 'email or username does not exist'
+                })
+            }
+            bcrypt.compare(req.body.password, user.password, function(err, result) {
                 if (err) {
-                    res.status(500).json({
+                    return res.status(500).json({
                         result: 'failed',
                         msg: 'something wrong. try again'
                     });
@@ -136,10 +145,10 @@ class UserController {
 
 
                 const payLoad = {
-                    id: user[0].id,
-                    name: user[0].name,
-                    profile_picture: user[0].profile_picture_url,
-                    birth: user[0].birth
+                    id: user.id,
+                    name: user.name,
+                    profile_picture: user.profile_picture_url,
+                    birth: user.birth
                 }
             
                 const accessToken = jwt.sign(payLoad, process.env.ACCESS_TOKEN_SECRET, {
@@ -154,6 +163,94 @@ class UserController {
             });
 
         }catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: `${err}`
+            });
+        }
+    }
+
+    
+    static async changeName(req, res, next) {
+        
+    }
+
+    static async changeBirth(req, res, next) {
+        
+    }
+
+    static async changeProfilePicture(req, res, next) {
+        
+    }
+
+    static async changeUsername(req, res, next) {
+        
+    }
+    
+    static async changeEmail(req, res, next) {
+        
+    }
+
+    static async changePassword(req, res, next) {
+        try {
+
+            if (req.body.newPassword.length < 8) {
+                return res.status(403).json({
+                    result: 'failed',
+                    msg: 'password less than 8 character'
+                });
+            }
+
+            if (req.body.newPassword !== req.body.newPasswordConfirmation) {
+                return res.status(400).json({
+                    result: 'failed',
+                    msg: 'different confirmation password'
+                });
+            }
+
+            const user = await User.findOne(
+                { _id: req.tokenData.id }
+            )
+            
+            bcrypt.compare(req.body.oldPassword, user.password, function(err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        result: 'failed',
+                        msg: 'something wrong. try again'
+                    });
+                }
+
+                if (!result) {
+                    return res.status(403).json({
+                        result: 'failed',
+                        msg: 'wrong password'
+                    });
+                }
+
+                bcrypt.hash(req.body.newPassword, saltRounds, async function(err, hash) {
+
+                    if (err) {
+                        return res.status(500).json({
+                            result: 'failed',
+                            msg: 'something wrong. try again'
+                        });
+                    }
+
+                    await User.findOneAndUpdate(
+                        { _id: user.id },
+                        { password: hash },
+                    );
+
+                    res.status(200).json({
+                        result: 'success',
+                        msg: 'password changed'
+                    });
+
+                });
+                
+            });
+
+        } catch(err) {
             res.status(500).json({
                 result: 'failed',
                 msg: `${err}`

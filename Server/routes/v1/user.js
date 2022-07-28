@@ -9,6 +9,8 @@ const verifyToken = require('../../middleware/verifyToken');
 user.post('/register', UserController.registerUser);
 user.post('/login', UserController.login);
 
+user.put('/change-password', verifyToken, UserController.changePassword);
+
 
 
 module.exports = user
