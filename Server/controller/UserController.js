@@ -16,6 +16,7 @@ class UserController {
             if (req.body.username.length < 5) {
                 return res.status(411).json({
                     result: 'failed',
+                    type: 'username',
                     msg: 'username less than 5 character'
                 }); 
             }
@@ -27,6 +28,7 @@ class UserController {
             if (userUsername.length !== 0) {
                 return res.status(409).json({
                     result: 'failed',
+                    type: 'username',
                     msg: 'username already used'
                 }); 
             }
@@ -38,6 +40,7 @@ class UserController {
             if (!isValidated) {
                 return res.status(400).json({
                     result: 'failed',
+                    type: 'email',
                     msg: 'not a well formed email address'
                 }); 
             }
@@ -49,6 +52,7 @@ class UserController {
             if (userEmail.length !== 0) {
                 return res.status(409).json({
                     result: 'failed',
+                    type: 'email',
                     msg: 'email already exist'
                 }); 
             }
@@ -58,7 +62,16 @@ class UserController {
             if (req.body.password.length < 8) {
                 return res.status(411).json({
                     result: 'failed',
+                    type: 'password',
                     msg: 'password less than 8 character'
+                });
+            }
+
+            if (req.body.password !== req.body.confirmPassword) {
+                return res.status(400).json({
+                    result: 'failed',
+                    type: 'password',
+                    msg: 'different confirmation password'
                 });
             }
 
@@ -167,7 +180,7 @@ class UserController {
             )
 
             if (!user) {
-                return res.status(403).json({
+                return res.status(417).json({
                     result: 'failed',
                     msg: 'id does not valid'
                 });
@@ -195,11 +208,112 @@ class UserController {
     }
 
     static async changeUsername(req, res, next) {
-        
+        try {
+            
+            const user = await User.findOne(
+                { _id: req.tokenData.id }
+            );
+            
+            if (!user) {
+                return res.status(417).json({
+                    result: 'failed',
+                    msg: 'id does not valid'
+                });
+            }
+
+            bcrypt.compare(req.body.password, user.password, async function(err, result) {
+                if (err) {
+                    throw Error('something wrong. try again');
+                }
+
+                if (!result) {
+                    return res.status(403).json({
+                        result: 'failed',
+                        msg: 'wrong password'
+                    });
+                }
+
+                await User.findOneAndUpdate(
+                    { _id: user.id },
+                    { username: req.body.newUsername }
+                );
+                
+                res.status(200).json({
+                    result:'success',
+                    msg: 'username has been updated'
+                });
+
+            });
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: `${err}`
+            });
+        }
     }
     
     static async changeEmail(req, res, next) {
-        
+        try {
+
+            const userEmail = await User.findOne(
+                { email: req.body.newEmail }
+            );
+
+            if (userEmail) {
+                return res.status(409).json({
+                    result: 'failed',
+                    type: 'email',
+                    msg: 'email already exist'
+                }); 
+            }
+
+            const isValidated = validator.validate(req.body.newEmail);
+            
+            if (!isValidated) {
+                return res.status(400).json({
+                    result: 'failed',
+                    type: 'email',
+                    msg: 'not a well formed email address'
+                }); 
+            }
+
+
+
+            const user = await User.findOne(
+                { _id: req.tokenData.id }
+            )
+
+            bcrypt.compare(req.body.password, user.password, async function(err, result) {
+                if (err) {
+                    throw Error('something wrong, try again')
+                }
+
+                if(!result) {
+                    return res.status(403).json({
+                        result: 'failed',
+                        msg: 'wrong password'
+                    });
+                }
+
+                await User.findOneAndUpdate(
+                    { _id: user.id },
+                    { email: req.body.newEmail }
+                );
+
+                res.status(200).json({
+                    result: 'success',
+                    msg: 'email updated'
+                });
+
+            });
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: `${err}`
+            });
+        }
     }
 
     static async changePassword(req, res, next) {
@@ -212,6 +326,13 @@ class UserController {
                 });
             }
 
+            if (req.body.newPassword !== req.body.confirmNewPassword) {
+                return res.status(400).json({
+                    result: 'failed',
+                    msg: 'different confirmation password'
+                });
+            }
+
 
 
             const user = await User.findOne(
@@ -219,7 +340,7 @@ class UserController {
             )
 
             if (!user) {
-                return res.status(400).json({
+                return res.status(417).json({
                     result: 'failed',
                     msg: 'id does not valid'
                 });
