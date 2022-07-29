@@ -14,7 +14,7 @@ class UserController {
         try {
 
             if (req.body.username.length < 5) {
-                return res.status(423).json({
+                return res.status(411).json({
                     result: 'failed',
                     msg: 'username less than 5 character'
                 }); 
@@ -25,7 +25,7 @@ class UserController {
             )
             
             if (userUsername.length !== 0) {
-                return res.status(422).json({
+                return res.status(409).json({
                     result: 'failed',
                     msg: 'username already used'
                 }); 
@@ -47,7 +47,7 @@ class UserController {
             )
 
             if (userEmail.length !== 0) {
-                return res.status(422).json({
+                return res.status(409).json({
                     result: 'failed',
                     msg: 'email already exist'
                 }); 
@@ -56,16 +56,9 @@ class UserController {
 
 
             if (req.body.password.length < 8) {
-                return res.status(403).json({
+                return res.status(411).json({
                     result: 'failed',
                     msg: 'password less than 8 character'
-                });
-            }
-
-            if (req.body.password !== req.body.passwordConfirmation) {
-                return res.status(400).json({
-                    result: 'failed',
-                    msg: 'different confirmation password'
                 });
             }
 
@@ -73,11 +66,9 @@ class UserController {
 
             bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
                 if (err) {
-                    res.status(500).json({
-                        result: 'failed',
-                        msg: 'something wrong. try again'
-                    });
+                    throw Error('something wrong. try again')
                 }
+
                 const newUser = new User({
                     username: req.body.username,
                     email: req.body.email,
@@ -122,17 +113,14 @@ class UserController {
             }
 
             if (!user) {
-                return res.status(403).json({
+                return res.status(404).json({
                     result: 'failed',
                     msg: 'email or username does not exist'
                 })
             }
             bcrypt.compare(req.body.password, user.password, function(err, result) {
                 if (err) {
-                    return res.status(500).json({
-                        result: 'failed',
-                        msg: 'something wrong. try again'
-                    });
+                    throw Error('something wrong. try again')
                 }
 
                 if (!result) {
@@ -173,10 +161,17 @@ class UserController {
     static async changeName(req, res, next) {
         try {
             
-            await User.findByIdAndUpdate(
+            const user = await User.findByIdAndUpdate(
                 { _id: req.tokenData.id },
                 { name: req.body.newName }
             )
+
+            if (!user) {
+                return res.status(403).json({
+                    result: 'failed',
+                    msg: 'id does not valid'
+                });
+            }
 
             res.status(200).json({
                 result: 'success',
@@ -211,29 +206,28 @@ class UserController {
         try {
 
             if (req.body.newPassword.length < 8) {
-                return res.status(403).json({
+                return res.status(411).json({
                     result: 'failed',
                     msg: 'password less than 8 character'
                 });
             }
 
-            if (req.body.newPassword !== req.body.newPasswordConfirmation) {
-                return res.status(400).json({
-                    result: 'failed',
-                    msg: 'different confirmation password'
-                });
-            }
+
 
             const user = await User.findOne(
                 { _id: req.tokenData.id }
             )
+
+            if (!user) {
+                return res.status(400).json({
+                    result: 'failed',
+                    msg: 'id does not valid'
+                });
+            }
             
             bcrypt.compare(req.body.oldPassword, user.password, function(err, result) {
                 if (err) {
-                    return res.status(500).json({
-                        result: 'failed',
-                        msg: 'something wrong. try again'
-                    });
+                    throw Error('something wrong, try again')
                 }
 
                 if (!result) {
@@ -246,10 +240,7 @@ class UserController {
                 bcrypt.hash(req.body.newPassword, saltRounds, async function(err, hash) {
 
                     if (err) {
-                        return res.status(500).json({
-                            result: 'failed',
-                            msg: 'something wrong. try again'
-                        });
+                        throw Error(err);
                     }
 
                     await User.findOneAndUpdate(
