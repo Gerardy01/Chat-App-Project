@@ -152,7 +152,7 @@ class UserController {
                 }
             
                 const accessToken = jwt.sign(payLoad, process.env.ACCESS_TOKEN_SECRET, {
-                    expiresIn: '24h'
+                    expiresIn: '12h'
                 });
 
                 res.status(200).json({
@@ -169,10 +169,26 @@ class UserController {
             });
         }
     }
-
     
     static async changeName(req, res, next) {
-        
+        try {
+            
+            await User.findByIdAndUpdate(
+                { _id: req.tokenData.id },
+                { name: req.body.newName }
+            )
+
+            res.status(200).json({
+                result: 'success',
+                msg: 'name has been changed'
+            });
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: `${err}`
+            });
+        }
     }
 
     static async changeBirth(req, res, next) {

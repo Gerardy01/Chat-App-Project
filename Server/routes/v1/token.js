@@ -7,7 +7,7 @@ const verifyToken = require('../../middleware/verifyToken');
 
 
 
-token.get('/', verifyToken, TokenController.getNewToken)
+token.get('/', verifyToken, TokenController.getNewToken);
 
 
 

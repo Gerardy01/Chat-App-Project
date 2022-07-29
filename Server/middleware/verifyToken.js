@@ -8,7 +8,7 @@ function authenticateToken(req, res, next) {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payLoad) => {
         if (err) {
-            return res.status(403).send({
+            return res.status(401).send({
                 msg: 'failed to authenticate'
             });
         }

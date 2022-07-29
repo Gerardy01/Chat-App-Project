@@ -14,7 +14,7 @@ class TokenController {
             }
             
             const accessToken = jwt.sign(payLoad, process.env.ACCESS_TOKEN_SECRET, {
-                expiresIn: '24h'
+                expiresIn: '12h'
             });
     
             res.status(200).json({
