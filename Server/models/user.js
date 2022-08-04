@@ -24,6 +24,9 @@ const User = mongoose.model('User', new mongoose.Schema({
     },
     profile_picture_url: {
         type: String
+    },
+    friends: {
+        type: Array
     }
 }, { timestamps: true }));
 

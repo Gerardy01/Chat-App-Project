@@ -10,6 +10,26 @@ const saltRounds = 10;
 
 
 class UserController {
+
+    static async getOneUser(req, res, next) {
+        try {
+
+            const user = await User.findOne(
+                { _id: req.params.id }
+            );
+
+            res.status(200).json({
+                result: 'success',
+                data: user
+            });
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: `${err}`
+            });
+        }
+    }
+
     static async registerUser(req, res, next) {
         try {
 
@@ -88,7 +108,8 @@ class UserController {
                     password: hash,
                     name: req.body.name,
                     birth: req.body.birth,
-                    profile_picture_url: req.body.profile_picture_url
+                    profile_picture_url: req.body.profile_picture_url,
+                    friends: []
                 });
                 newUser.save().then(data => {
                     console.log(data);
