@@ -27,6 +27,9 @@ const User = mongoose.model('User', new mongoose.Schema({
     },
     friends: {
         type: Array
+    },
+    group: {
+        type: Array
     }
 }, { timestamps: true }));
 

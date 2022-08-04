@@ -18,9 +18,20 @@ class UserController {
                 { _id: req.params.id }
             );
 
+            const data = {
+                id: user._id,
+                username: user.username,
+                name: user.name,
+                email: user.email,
+                birth: user.birth,
+                profilePicture: user.profile_picture_url,
+                friends: user.friends,
+                group: user.group
+            }
+
             res.status(200).json({
                 result: 'success',
-                data: user
+                data: data
             });
         } catch(err) {
             res.status(500).json({
@@ -109,7 +120,8 @@ class UserController {
                     name: req.body.name,
                     birth: req.body.birth,
                     profile_picture_url: req.body.profile_picture_url,
-                    friends: []
+                    friends: [],
+                    group: []
                 });
                 newUser.save().then(data => {
                     console.log(data);

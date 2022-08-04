@@ -3,28 +3,45 @@ const Conversation = require("../models/conversation")
 
 
 class ChatController {
-    static async createConversation(req, res, next) {
+
+    static async getConversation(req, res, next) {
         try {
 
-            if (req.body.members.length === 0) {
-                return res.status(400).json({
+            let data = [];
+            const conversations = await Conversation.find(
+                { members: { $in : [req.params.userId] } }
+            );
+
+            if (conversations.length === 0) {
+                return res.status(404).json({
                     result: 'failed',
-                    msg: 'must be any member'
-                });
+                    msg: 'user data not found'
+                })
             }
 
-            const newConversation = new Conversation({
-                is_group: false,
-                members: req.body.members
-            });
-            newConversation.save().then(data => {
-                console.log(data);
+            conversations.forEach(e => {
+                if (e.is_group) {
+                    data.push({
+                        isGroup: e.is_group,
+                        groupId: e.group_id
+                    });
+                }
+
+                const displayedUser = e.members.find(data => data !== req.params.userId);
+
+                if (!e.is_group && displayedUser) {
+                    data.push({
+                        isGroup: e.is_group,
+                        privateMessageId: e.private_message_id,
+                        displayedUserId: displayedUser
+                    })
+                }
             });
 
             res.status(200).json({
                 result: 'success',
-                msg: 'new conversation created'
-            });
+                data: data
+            })
 
         } catch(err) {
             res.status(500).json({
@@ -34,15 +51,7 @@ class ChatController {
         }
     }
 
-    static async getConversation(req, res, next) {
-
-    }
-
-    static async createGroup(req, res, next) {
-
-    }
-
-    static async addMember(req, res, next) {
+    static async addConversationMember(req, res, next) {
         
     }
 }

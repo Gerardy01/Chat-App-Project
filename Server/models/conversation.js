@@ -10,6 +10,9 @@ const Conversation = mongoose.model('Conversation', new mongoose.Schema({
     group_id: {
         type: String
     },
+    private_message_id: {
+        type: String
+    },
     members: {
         type: Array
     }
