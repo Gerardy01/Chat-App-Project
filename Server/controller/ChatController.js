@@ -1,4 +1,5 @@
-const Conversation = require("../models/conversation")
+const Conversation = require("../models/conversation");
+const PrivateMessage = require("../models/privateMessage");
 
 
 
@@ -52,7 +53,95 @@ class ChatController {
     }
 
     static async addConversationMember(req, res, next) {
-        
+        try {
+
+            const conversation = await Conversation.findOne(
+                { _id: req.body.conversationId }
+            );
+
+            const userExist = conversation.members.find(e => e === req.body.userId);
+            if (userExist) {
+                return res.status(403).json({
+                    result: 'failed',
+                    msg: 'user already member of this conversation'
+                })
+            }
+
+
+
+            const privateMessage = await PrivateMessage.findOne(
+                { _id: conversation.private_message_id }
+            );
+            
+            const userAuth = privateMessage.members.find(e => e === req.body.userId);
+            if (!userAuth) {
+                return res.status(400).json({
+                    result: 'failed',
+                    msg: 'user not a member of this private message'
+                });
+            }
+
+            const conversationMember = conversation.members;
+            conversationMember.push(req.body.userId);
+
+            await Conversation.findByIdAndUpdate(
+                { _id: req.body.conversationId },
+                { members: conversationMember }
+            )
+
+            res.status(200).json({
+                result: 'success',
+                msg: 'user added'
+            });
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: err
+            });
+        }
+    }
+
+    static async removeConversationMember(req, res, next) {
+        try {
+
+            const conversation = await Conversation.findOne(
+                { _id: req.body.conversationId }
+            );
+
+            const userExist = conversation.members.find(e => e === req.body.userId);
+            if (!userExist) {
+                return res.status(403).json({
+                    result: 'failed',
+                    msg: 'user not in this conversation'
+                })
+            }
+
+            const conversationMember = [];
+
+            conversation.members.forEach(data => {
+                if (data !== req.body.userId) {
+                    conversationMember.push(data);
+                }
+            });
+            console.log(conversationMember);
+
+            await Conversation.findByIdAndUpdate(
+                { _id: req.body.conversationId },
+                { members: conversationMember }
+            )
+
+            res.status(200).json({
+                result: 'success',
+                msg: 'user removed'
+            });
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: err
+            });
+        }
     }
 }
 

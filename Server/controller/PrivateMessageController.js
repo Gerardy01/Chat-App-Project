@@ -11,7 +11,7 @@ class PrivateMessageController {
                 members: [req.body.senderId, req.body.reciverId]
             });
             newPrivateMessage.save().then(data => {
-                console.log(data);
+                console.log('new private message created');
             });
 
             const newConversation = new Conversation({
@@ -20,12 +20,32 @@ class PrivateMessageController {
                 members: [req.body.senderId]
             });
             newConversation.save().then(data => {
-                console.log(data);
+                console.log('new conversation creatd');
             });
 
             res.status(200).json({
                 result: 'success',
                 msg: 'new private message created'
+            });
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: err
+            });
+        }
+    }
+
+    static async getPrivateMessage(req, res, next) {
+        try {
+
+            const privateMessage = await PrivateMessage.findOne(
+                { _id: req.params.id }
+            );
+
+            res.status(200).json({
+                id: privateMessage.id,
+                members: privateMessage.members
             });
 
         } catch(err) {

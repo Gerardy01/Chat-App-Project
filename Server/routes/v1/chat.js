@@ -9,7 +9,9 @@ const privateMessage = require('./privateMessage');
 
 chat.get('/conversation/:userId', ChatController.getConversation);
 
-chat.post('/add-conversation-member/:userId', ChatController.addConversationMember);
+chat.put('/conversation/add-member', ChatController.addConversationMember);
+
+chat.delete('/conversation/remove-member', ChatController.removeConversationMember);
 
 
 

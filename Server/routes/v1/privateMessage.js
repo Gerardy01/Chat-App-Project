@@ -5,6 +5,8 @@ const PrivateMessageController = require('../../controller/PrivateMessageControl
 
 
 
+privateMessage.get('/:id', PrivateMessageController.getPrivateMessage);
+
 privateMessage.post('/', PrivateMessageController.createPrivateMessage);
 
 

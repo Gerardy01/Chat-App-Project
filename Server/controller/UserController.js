@@ -24,9 +24,7 @@ class UserController {
                 name: user.name,
                 email: user.email,
                 birth: user.birth,
-                profilePicture: user.profile_picture_url,
-                friends: user.friends,
-                group: user.group
+                profilePicture: user.profile_picture_url
             }
 
             res.status(200).json({
