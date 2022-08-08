@@ -47,7 +47,7 @@ class GroupController {
     }
 
     static async addGroupMember(req, res, next) {
-
+        
     }
 }
 

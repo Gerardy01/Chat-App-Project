@@ -23,6 +23,7 @@ class ChatController {
             conversations.forEach(e => {
                 if (e.is_group) {
                     data.push({
+                        conversationId: e.id,
                         isGroup: e.is_group,
                         groupId: e.group_id
                     });
@@ -32,6 +33,7 @@ class ChatController {
 
                 if (!e.is_group && displayedUser) {
                     data.push({
+                        conversationId: e.id,
                         isGroup: e.is_group,
                         privateMessageId: e.private_message_id,
                         displayedUserId: displayedUser
