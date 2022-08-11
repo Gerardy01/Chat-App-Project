@@ -5,9 +5,11 @@ const GroupController = require('../../controller/GroupController');
 
 
 
-group.get('/', GroupController.getGroupDetails);
+group.get('/:groupId', GroupController.getGroupDetails);
 
 group.post('/', GroupController.createGroup);
+
+group.put('/', GroupController.addGroupMember);
 
 
 module.exports = group
