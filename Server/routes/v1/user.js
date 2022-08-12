@@ -6,7 +6,9 @@ const verifyToken = require('../../middleware/verifyToken');
 
 
 
-user.get('/:id', UserController.getOneUser)
+user.get('/:id', UserController.getOneUser);
+user.get('/username/:username', UserController.findByUsername);
+user.get('/email/:email', UserController.findByEmail);
 
 user.post('/register', UserController.registerUser);
 user.post('/login', UserController.login);

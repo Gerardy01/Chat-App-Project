@@ -201,6 +201,87 @@ class UserController {
             });
         }
     }
+
+    static async findByUsername(req, res, next) {
+        try {
+
+            const user = await User.findOne(
+                { username: req.params.username }
+            );
+            
+            if(!user) {
+                return res.status(204).json({
+                    result: 'success',
+                    msg: 'user not found'
+                });
+            }
+
+            const data = {
+                id: user._id,
+                username: user.username,
+                name: user.name,
+                email: user.email,
+                birth: user.birth,
+                profilePicture: user.profile_picture_url
+            }
+
+            res.status(200).json({
+                result: 'success',
+                data: data
+            });
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: `${err}`
+            });
+        }
+    }
+
+    static async findByEmail(req, res, next) {
+        try {
+
+            const isValidated = validator.validate(req.params.email);
+            
+            if (!isValidated) {
+                return res.status(400).json({
+                    result: 'failed',
+                    msg: 'not a well formed email address'
+                }); 
+            }
+
+            const user = await User.findOne(
+                { email: req.params.email }
+            );
+            
+            if(!user) {
+                return res.status(204).json({
+                    result: 'success',
+                    msg: 'user not found'
+                });
+            }
+
+            const data = {
+                id: user._id,
+                username: user.username,
+                name: user.name,
+                email: user.email,
+                birth: user.birth,
+                profilePicture: user.profile_picture_url
+            }
+
+            res.status(200).json({
+                result: 'success',
+                data: data
+            });
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: `${err}`
+            });
+        }
+    }
     
     static async changeName(req, res, next) {
         try {
