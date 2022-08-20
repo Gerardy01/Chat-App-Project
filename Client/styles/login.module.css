@@ -1,0 +1,164 @@
+
+
+
+/* CSS Line */
+
+.loginPage {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #f2f2f2;
+}
+
+
+
+.loginDesktopHolder {
+    width: 31rem;
+
+    background-color: white;
+    overflow: hidden;
+
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.loginForm {
+    width: 100%;
+
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.loginTitleHolder {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loginTitleHolder h1 {
+    font-weight: 900;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+
+.inputHolder {
+    margin-bottom: 1rem;
+}
+
+.inputLabel {
+    font-size: 12px;
+    
+    margin-bottom: 0.4rem;
+}
+.inputLabelWrong {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 0.4rem;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+
+    border: 3px solid black;
+    border-radius: 4px;
+}
+
+
+
+.loginBtnHolder {
+    width: 100%;
+    padding-top: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.submitBtn {
+    width: 20%;
+    height: 2.5rem;
+    font-weight: 900;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    border: 3px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    background-color: rgb(244, 118, 72);
+}
+.submitBtn:hover {
+    background-color: rgb(254, 68, 0);
+}
+.backBtn {
+    color: blue;
+    cursor: pointer;
+}
+.backBtn:hover {
+    text-decoration: underline;
+}
+
+.redirectHolder {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    margin-top: 2rem;
+}
+
+.redirectBtn {
+    color: blue;
+    cursor: pointer;
+    margin-left: 3px;
+}
+.redirectBtn:hover {
+    text-decoration: underline;
+}
+
+
+.loadDots {
+    aspect-ratio: 1 / 1;
+    width: 0.8rem;
+
+    background-color: white;
+    border-radius: 20px;
+}
+.submitBtnLoad {
+    width: 20%;
+    height: 2.5rem;
+    font-weight: 900;
+    color: white;
+
+    padding: 0px 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    overflow: hidden;
+    border: 3px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    background-color: rgb(244, 118, 72);
+}
+.submitBtnLoad:hover {
+    background-color: rgb(254, 68, 0);
+}
