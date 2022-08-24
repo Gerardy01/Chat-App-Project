@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import styles from '../styles/login.module.css';
 
@@ -8,6 +9,8 @@ import getCookie from '../utils/getCookie';
 
 
 export default function Login() {
+
+    const navigate = useRouter();
     
     const [loading, setLoading] = useState(true);
     const [btnLoading, setBtnLoading] = useState(false);
@@ -25,22 +28,24 @@ export default function Login() {
 
     useEffect(() => {
         const token = getCookie('token');
-
         if (token) {
             fetch("http://localhost:8000/api/v1/token", {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authentication': 'Bearer Token'
+                    authorization: 'Bearer ' + token,
+                    'Content-Type': 'application/json'
                 }
             }).then(res => {
                 if (res.status === 401) {
                     setLoading(false);
                     return
                 }
+                if (res.status === 200) {
+                    navigate.push('/chat')
+                }
             }).catch(err => {
-                
+                alert("try again");
             });
         } else {
             setLoading(false);
@@ -78,7 +83,7 @@ export default function Login() {
         }).then(res => {
             if (res.status === 404) {
                 setInputLabelWrong(true);
-                setUserLabel('USERNAME OR EMAIL - email or username does not exist');
+                setUserLabel('USERNAME OR EMAIL - username or email does not exist');
 
                 setPasswordLabelWrong(false);
                 setPasswordLabel('PASSWORD');
@@ -100,6 +105,7 @@ export default function Login() {
                     setUserLabel('USERNAME OR EMAIL');
 
                     document.cookie = `token=${data.access_token}`
+                    navigate.push('/chat')
                 });
             }
             setBtnLoading(false);
