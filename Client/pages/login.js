@@ -110,7 +110,9 @@ export default function Login() {
             }
             setBtnLoading(false);
         }).catch(err => {
-            alert("try again")
+            alert("try again");
+            console.log(err);
+            setBtnLoading(false);
         });
 
     }
@@ -120,13 +122,13 @@ export default function Login() {
         return <div>loading</div>
     }
 
-    function renderLogin() {
+    function renderedComponent() {
         if (!isMobile) {
             return (
                 <section className={styles.loginPage}>
                     <div className={styles.loginDesktopHolder}>
-                        <div className='topSideBar'>
-                            <div className='btnDecoyHolder' style={{ backgroundColor: 'rgb(237, 53, 237)' }}>
+                        <div className='topSideBar' style={{ backgroundColor: 'rgb(237, 53, 237)' }}>
+                            <div className='btnDecoyHolder'>
                                 <div className='btnDecoy' style={{ backgroundColor: 'red' }} />
                                 <div className='btnDecoy' style={{ backgroundColor: 'rgb(255, 255, 77)' }} />
                                 <div className='btnDecoy' style={{ backgroundColor: 'lightgreen' }} />
@@ -156,12 +158,12 @@ export default function Login() {
                                     <p className={styles.backBtn}>Back</p>
                                 </Link>
                                 {btnLoading ?
-                                    <div className={styles.submitBtnLoad}>
-                                        <div className={styles.loadDots} />
-                                        <div className={styles.loadDots} />
-                                        <div className={styles.loadDots} />
+                                    <div className={'submitBtnLoad'}>
+                                        <div className={'loadDots'} />
+                                        <div className={'loadDots'} />
+                                        <div className={'loadDots'} />
                                     </div> :
-                                    <button type='submit' className={styles.submitBtn}>SUBMIT</button>
+                                    <button type='submit' className={'submitBtn'}>SUBMIT</button>
                                 }
                             </div>
                             <div className={styles.redirectHolder}>
@@ -182,5 +184,5 @@ export default function Login() {
             </section>
         )
     }
-    return <>{renderLogin()}</>
+    return <>{renderedComponent()}</>
 }

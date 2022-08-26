@@ -29,3 +29,67 @@ body {
 
   border-radius: 20px;
 }
+
+
+
+
+
+.submitBtn {
+  width: 20%;
+  height: 2.5rem;
+  font-weight: 900;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+  border: 3px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  background-color: rgb(244, 118, 72);
+}
+.submitBtn:hover {
+  background-color: rgb(254, 68, 0);
+}
+
+
+
+.submitBtnLoad {
+  width: 20%;
+  height: 2.5rem;
+  font-weight: 900;
+  color: white;
+
+  padding: 0px 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  overflow: hidden;
+  border: 3px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  background-color: rgb(244, 118, 72);
+}
+.submitBtnLoad:hover {
+  background-color: rgb(254, 68, 0);
+}
+
+
+
+.loadDots {
+  aspect-ratio: 1 / 1;
+  width: 0.8rem;
+
+  background-color: white;
+  border-radius: 20px;
+}

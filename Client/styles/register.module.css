@@ -3,7 +3,7 @@
 
 /* CSS Line */
 
-.loginPage {
+.registerPage {
     width: 100vw;
     height: 100vh;
 
@@ -16,7 +16,7 @@
 
 
 
-.loginDesktopHolder {
+.registerDesktopHolder {
     width: 31rem;
 
     background-color: white;
@@ -26,70 +26,26 @@
     border-radius: 10px;
 }
 
-.loginForm {
+.registerContent {
     width: 100%;
 
     padding: 1.5rem;
     box-sizing: border-box;
 }
 
-.loginTitleHolder {
+
+
+.registerTitleHolder {
     width: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.loginTitleHolder h1 {
-    font-weight: 900;
-    font-size: 2rem;
+
     margin-bottom: 1rem;
 }
 
 
-.inputHolder {
-    margin-bottom: 1rem;
-}
-
-.inputLabel {
-    font-size: 12px;
-    
-    margin-bottom: 0.4rem;
-}
-.inputLabelWrong {
-    color: red;
-    font-size: 12px;
-    margin-bottom: 0.4rem;
-}
-
-.input {
-    width: 100%;
-    padding: 8px;
-
-    border: 3px solid black;
-    border-radius: 4px;
-}
-
-
-
-.loginBtnHolder {
-    width: 100%;
-    padding-top: 1rem;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-
-.backBtn {
-    color: blue;
-    cursor: pointer;
-}
-.backBtn:hover {
-    text-decoration: underline;
-}
 
 .redirectHolder {
     width: 100%;
