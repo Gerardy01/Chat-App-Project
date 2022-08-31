@@ -42,7 +42,10 @@ export default function Login() {
                     return
                 }
                 if (res.status === 200) {
-                    navigate.push('/chat')
+                    res.json().then(data => {
+                        document.cookie = `token=${data.access_token}`
+                    });
+                    navigate.push('/chat');
                 }
             }).catch(err => {
                 alert("try again");

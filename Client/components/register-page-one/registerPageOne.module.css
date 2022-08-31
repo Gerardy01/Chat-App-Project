@@ -25,3 +25,31 @@
     border: 3px solid black;
     border-radius: 4px;
 }
+
+
+
+.registerOneBtnHolder {
+    width: 100%;
+    padding-top: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.backBtn {
+    color: blue;
+    cursor: pointer;
+}
+.nextBtn {
+    color: blue;
+    cursor: pointer;
+
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+
+    background-color: transparent;
+    border: none;
+}

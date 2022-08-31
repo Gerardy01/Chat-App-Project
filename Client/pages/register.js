@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import styles from '../styles/register.module.css'
 
 import Link from 'next/link';
 
 import { isMobile } from 'react-device-detect'
+import getCookie from '../utils/getCookie';
 
 import RegisterPageOne from '../components/register-page-one/registerPageOne';
 
@@ -11,11 +13,45 @@ import RegisterPageOne from '../components/register-page-one/registerPageOne';
 
 export default function Register() {
 
+    const navigate = useRouter();
+
     const [loading, setLoading] = useState(true);
+    const [registerPage, setRegisterPage] = useState(1);
 
     useEffect(() => {
-        setLoading(false);
+        const token = getCookie('token');
+        if (token) {
+            fetch("http://localhost:8000/api/v1/token", {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    authorization: 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                if (res.status === 401) {
+                    setLoading(false);
+                    return
+                }
+                if (res.status === 200) {
+                    res.json().then(data => {
+                        document.cookie = `token=${data.access_token}`
+                    });
+                    navigate.push('/chat');
+                }
+            }).catch(err => {
+                alert("try again");
+            });
+        } else {
+            setLoading(false);
+        }
     }, [])
+
+
+
+    function handleRegisterPage(page) {
+        setRegisterPage(page);
+    }
 
 
 
@@ -39,8 +75,8 @@ export default function Register() {
                             <div className={styles.registerTitleHolder}>
                                 <h1>Register</h1>
                             </div>
-
-                            <RegisterPageOne />
+                            
+                            { registerPage === 1 ? <RegisterPageOne handleRegisterPage={handleRegisterPage} /> : <div>2</div> }
 
                             <div className={styles.redirectHolder}>
                                 <p>Already have account?</p>
