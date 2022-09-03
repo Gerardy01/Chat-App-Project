@@ -1,0 +1,70 @@
+
+
+
+/* CSS Line */
+
+.registerPage {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #f2f2f2;
+}
+
+
+
+.registerDesktopHolder {
+    width: 31rem;
+
+    background-color: white;
+    overflow: hidden;
+
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.registerContent {
+    width: 100%;
+
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+
+
+.registerTitleHolder {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.3rem;
+
+    margin-bottom: 1rem;
+}
+
+
+
+.redirectHolder {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    margin-top: 2rem;
+}
+
+.redirectBtn {
+    color: blue;
+    cursor: pointer;
+    margin-left: 3px;
+}
+.redirectBtn:hover {
+    text-decoration: underline;
+}

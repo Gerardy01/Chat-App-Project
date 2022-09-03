@@ -1,0 +1,59 @@
+
+
+
+/* CSS Line */
+
+.inputHolder {
+    margin-bottom: 1rem;
+}
+
+.inputLabel {
+    font-size: 12px;
+    
+    margin-bottom: 0.4rem;
+}
+.inputLabelWrong {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 0.4rem;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+
+    border: 3px solid black;
+    border-radius: 4px;
+}
+
+
+
+.registerOneBtnHolder {
+    width: 100%;
+    padding-top: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.backBtn {
+    color: blue;
+    cursor: pointer;
+}
+.nextBtn {
+    color: blue;
+    cursor: pointer;
+
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+
+    background-color: transparent;
+    border: none;
+}
+.nextBtnDisabled {
+    color: rgb(173, 173, 173);
+    cursor: not-allowed;
+}
