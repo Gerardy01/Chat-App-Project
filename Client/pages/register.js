@@ -8,6 +8,7 @@ import { isMobile } from 'react-device-detect'
 import getCookie from '../utils/getCookie';
 
 import RegisterPageOne from '../components/register-page-one/registerPageOne';
+import RegisterPageTwo from '../components/register-page-two/RegisterPageTwo';
 
 
 
@@ -76,7 +77,10 @@ export default function Register() {
                                 <h1>Register</h1>
                             </div>
                             
-                            { registerPage === 1 ? <RegisterPageOne handleRegisterPage={handleRegisterPage} /> : <div>2</div> }
+                            { registerPage === 1 ?
+                                <RegisterPageOne handleRegisterPage={handleRegisterPage} /> : 
+                                <RegisterPageTwo handleRegisterPage={handleRegisterPage} />
+                            }
 
                             <div className={styles.redirectHolder}>
                                 <p>Already have account?</p>

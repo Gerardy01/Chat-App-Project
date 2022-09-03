@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import style from './registerPageOne.module.css'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setRegisterBirth, setRegisterEmail, setRegisterUsername } from '../../redux/features/registerDataSlice';
 
 
@@ -10,6 +10,8 @@ import { setRegisterBirth, setRegisterEmail, setRegisterUsername } from '../../r
 export default function RegisterPageOne(props) {
 
     const dispatch = useDispatch();
+
+    const registerData = useSelector(state => state.registerData.data);
 
     const [usernameInput, setUsernameInput] = useState("");
     const [emailInput, setEmailInput] = useState("");
@@ -24,8 +26,25 @@ export default function RegisterPageOne(props) {
     const [birthLabelWrong, setBirthLabelWrong] = useState(false);
     const [birthLabel, setBirthLabel] = useState("DATE OF BIRTH");
 
+    const [btnLoading, setBtnLoading] = useState(false);
+
+
+
+    useEffect(() => {
+        if (registerData.username !== '' &&
+            registerData.email !== '' &&
+            registerData.birth !== ''
+        ) {
+            setUsernameInput(registerData?.username);
+            setEmailInput(registerData?.email);
+            setDateInput(registerData?.birth);
+        }
+    }, [registerData]);
+
     async function handleNext(e) {
         e.preventDefault();
+
+        setBtnLoading(true);
 
         let usernameReady = false;
         let emailReady = false;
@@ -117,7 +136,7 @@ export default function RegisterPageOne(props) {
             if (usernameReady && emailReady && birthReady) {
                 props.handleRegisterPage(2);
             }
-
+            setBtnLoading(false);
         } catch(err) {
             console.log(err);
             alert('Try Again')
@@ -128,17 +147,17 @@ export default function RegisterPageOne(props) {
         <form className={style.registerForm} onSubmit={e => handleNext(e)}>
             <div className={style.inputHolder}>
                 <p className={usernameLabelWrong ? style.inputLabelWrong : style.inputLabel}>{usernameLabel}</p>
-                <input placeholder='username' type='text' className={style.input} onChange={e => setUsernameInput(e.target.value)} />
+                <input value={usernameInput} placeholder='username' type='text' className={style.input} onChange={e => setUsernameInput(e.target.value)} />
             </div>
 
             <div className={style.inputHolder}>
                 <p className={emailLabelWrong ? style.inputLabelWrong : style.inputLabel}>{emailLabel}</p>
-                <input placeholder='example@mail.com' type='email' className={style.input} onChange={e => setEmailInput(e.target.value)} />
+                <input value={emailInput} placeholder='example@mail.com' type='email' className={style.input} onChange={e => setEmailInput(e.target.value)} />
             </div>
 
             <div className={style.inputHolder}>
                 <p className={birthLabelWrong ? style.inputLabelWrong : style.inputLabel}>{birthLabel}</p>
-                <input type='date' className={style.input} onChange={e => setDateInput(e.target.value)} />
+                <input value={dateInput} type='date' className={style.input} onChange={e => setDateInput(e.target.value)} />
             </div>
 
             <div className={style.registerOneBtnHolder}>
@@ -146,7 +165,13 @@ export default function RegisterPageOne(props) {
                     <p className={style.backBtn}>Back</p>
                 </Link>
 
-                <button type='submit' className={style.nextBtn}>Next</button>
+                {!btnLoading ?
+                    <>
+                        <button type='submit' className={style.nextBtn}>Next</button>
+                    </> : <>
+                        <div className={style.nextBtnDisabled}>Loading</div>
+                    </>
+                }
             </div>
         </form>
     )
