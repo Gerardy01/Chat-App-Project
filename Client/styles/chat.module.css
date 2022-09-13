@@ -1,0 +1,27 @@
+
+
+
+/* CSS Line */
+
+.chatPage {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatPageContent {
+    width: 80%;
+    height: 90%;
+
+    overflow: hidden;
+
+    border: 5px solid black;
+    border-radius: 10px;
+
+    background-color: white;
+}
+
+
