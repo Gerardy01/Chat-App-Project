@@ -14,6 +14,7 @@ export default function Login() {
     
     const [loading, setLoading] = useState(true);
     const [btnLoading, setBtnLoading] = useState(false);
+    const [loginActive, setLoginActive] = useState(false);
 
     const [inputLabelWrong, setInputLabelWrong] = useState(false);
     const [userLabel, setUserLabel] = useState('USERNAME OR EMAIL');
@@ -39,6 +40,9 @@ export default function Login() {
             }).then(res => {
                 if (res.status === 401) {
                     setLoading(false);
+                    setTimeout(() => {
+                        setLoginActive(true);
+                    }, 200);
                     return
                 }
                 if (res.status === 200) {
@@ -52,6 +56,9 @@ export default function Login() {
             });
         } else {
             setLoading(false);
+            setTimeout(() => {
+                setLoginActive(true);
+            }, 200);
         }
     }, []);
 
@@ -129,7 +136,7 @@ export default function Login() {
         if (!isMobile) {
             return (
                 <section className={styles.loginPage}>
-                    <div className={styles.loginDesktopHolder}>
+                    <div className={loginActive ? styles.loginDesktopHolder : styles.loginDesktopHolderDisabled}>
                         <div className='topSideBar' style={{ backgroundColor: 'rgb(237, 53, 237)' }}>
                             <div className='btnDecoyHolder'>
                                 <div className='btnDecoy' style={{ backgroundColor: 'red' }} />

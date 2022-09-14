@@ -116,7 +116,7 @@ export default function RegisterPageTwo(props) {
                     return
                 }
 
-                navigate.push("/login");
+                props.handleFormSubmited(true);
             });
         }).catch(err => {
             console.log(err);

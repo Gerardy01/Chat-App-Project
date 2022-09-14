@@ -60,6 +60,14 @@ export default function Chat() {
                                 <div className='btnDecoy' style={{ backgroundColor: 'blue' }} />
                             </div>
                         </div>
+                        <div className={styles.chatPageContentMain}>
+                            <div className={styles.conversationListComponent}>
+                                
+                            </div>
+                            <div className={styles.messageComponent}>
+                                
+                            </div>
+                        </div>
                     </div>
                 </section>
             )
