@@ -1,4 +1,6 @@
 const Message = require('../models/message');
+const PrivateMessage = require('../models/privateMessage');
+const Group = require('../models/group');
 
 
 
@@ -7,7 +9,7 @@ class MessageController {
         try {
 
             const messages = await Message.find(
-                { conversation_id: req.params.conversationId }
+                { source_id: req.params.sourceId }
             )
 
             if (messages.length === 0) {
@@ -45,8 +47,23 @@ class MessageController {
     static async addMessage(req, res, next) {
         try {
 
+            const privateMessage = await PrivateMessage.find(
+                { _id: req.body.sourceId }
+            )
+
+            const group = await Group.find(
+                { _id: req.body.sourceId }
+            )
+
+            if (privateMessage.length === 0 && group.length === 0) {
+                return res.status(404).json({
+                    result: 'failed',
+                    msg: 'source not found'
+                });
+            }
+
             const message = new Message({
-                conversation_id: req.body.conversationId,
+                source_id: req.body.sourceId,
                 sender_id: req.body.senderId,
                 text: req.body.text
             });
