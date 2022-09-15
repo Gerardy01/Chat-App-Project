@@ -1,0 +1,74 @@
+
+
+
+/* CSS :Line */
+
+.submitedCard {
+    aspect-ratio: 1 / 1.2;
+    width: 18rem;
+
+    overflow: hidden;
+
+    border: 5px solid black;
+    border-radius: 10px;
+    background-color: white;
+
+    transition: 0.2s;
+}
+.submitedCardDisabled {
+    transform: scale(0, 0);
+}
+
+
+
+.submitedCardMain {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 2rem 0px;
+}
+
+
+
+.checkmarkHolder {
+    width: 30%;
+    height: 30%;
+}
+
+.submitedCardContent {
+    width: 100%;
+    height: 30%;
+
+    text-align: center;
+}
+.submitedCardContent h2 {
+    margin-bottom: 10px;
+}
+
+.submiedCardFooter {
+    width: 100%;
+    height: 15%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.redirectBtn {
+    font-size: 0.8rem;
+    color: blue;
+    cursor: pointer;
+    margin-left: 3px;
+}
+.redirectBtn:hover {
+    text-decoration: underline;
+}
+
+
+

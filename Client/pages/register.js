@@ -9,6 +9,7 @@ import getCookie from '../utils/getCookie';
 
 import RegisterPageOne from '../components/register-page-one/registerPageOne';
 import RegisterPageTwo from '../components/register-page-two/RegisterPageTwo';
+import SubmitedCard from '../components/submited-card/SubmitedCard';
 
 
 
@@ -18,6 +19,8 @@ export default function Register() {
 
     const [loading, setLoading] = useState(true);
     const [registerPage, setRegisterPage] = useState(1);
+    const [formSubmited, setFormSubmited] = useState(false);
+    const [registerActive, setRegisterActive] = useState(false);
 
     useEffect(() => {
         const token = getCookie('token');
@@ -32,6 +35,9 @@ export default function Register() {
             }).then(res => {
                 if (res.status === 401) {
                     setLoading(false);
+                    setTimeout(() => {
+                        setRegisterActive(true);
+                    }, 200);
                     return
                 }
                 if (res.status === 200) {
@@ -45,6 +51,9 @@ export default function Register() {
             });
         } else {
             setLoading(false);
+            setTimeout(() => {
+                setRegisterActive(true);
+            }, 200);
         }
     }, [])
 
@@ -52,6 +61,14 @@ export default function Register() {
 
     function handleRegisterPage(page) {
         setRegisterPage(page);
+    }
+
+    function handleFormSubmited(isSubmited) {
+        if (isSubmited) {
+            setFormSubmited(true);
+            return
+        }
+        setFormSubmited(false);
     }
 
 
@@ -64,32 +81,41 @@ export default function Register() {
         if (!isMobile) {
             return (
                 <section className={styles.registerPage}>
-                    <div className={styles.registerDesktopHolder}>
-                        <div className='topSideBar' style={{ backgroundColor: 'rgb(224, 157, 33)' }}>
-                            <div className='btnDecoyHolder' style={{ backgroundColor: 'rgb(224, 157, 33)' }}>
-                                <div className='btnDecoy' style={{ backgroundColor: 'red' }} />
-                                <div className='btnDecoy' style={{ backgroundColor: 'rgb(255, 255, 77)' }} />
-                                <div className='btnDecoy' style={{ backgroundColor: 'lightgreen' }} />
-                            </div>
-                        </div>
-                        <div className={styles.registerContent}>
-                            <div className={styles.registerTitleHolder}>
-                                <h1>Register</h1>
-                            </div>
-                            
-                            { registerPage === 1 ?
-                                <RegisterPageOne handleRegisterPage={handleRegisterPage} /> : 
-                                <RegisterPageTwo handleRegisterPage={handleRegisterPage} />
-                            }
+                    {!formSubmited ? 
+                        <>
+                            <div className={registerActive ? styles.registerDesktopHolder : styles.registerDesktopHolderDisabled}>
+                                <div className='topSideBar' style={{ backgroundColor: 'rgb(224, 157, 33)' }}>
+                                    <div className='btnDecoyHolder' style={{ backgroundColor: 'rgb(224, 157, 33)' }}>
+                                        <div className='btnDecoy' style={{ backgroundColor: 'red' }} />
+                                        <div className='btnDecoy' style={{ backgroundColor: 'rgb(255, 255, 77)' }} />
+                                        <div className='btnDecoy' style={{ backgroundColor: 'lightgreen' }} />
+                                    </div>
+                                </div>
+                                <div className={styles.registerContent}>
+                                    <div className={styles.registerTitleHolder}>
+                                        <h1>Register</h1>
+                                    </div>
+                                    
+                                    { registerPage === 1 ?
+                                        <RegisterPageOne handleRegisterPage={handleRegisterPage} /> :
+                                        <RegisterPageTwo
+                                            handleRegisterPage={handleRegisterPage} 
+                                            handleFormSubmited={handleFormSubmited}
+                                        />
+                                    }
 
-                            <div className={styles.redirectHolder}>
-                                <p>Already have account?</p>
-                                <Link href={'/login'}>
-                                    <p className={styles.redirectBtn}>Login</p>
-                                </Link>
+                                    <div className={styles.redirectHolder}>
+                                        <p>Already have account?</p>
+                                        <Link href={'/login'}>
+                                            <p className={styles.redirectBtn}>Login</p>
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </> : <>
+                            <SubmitedCard formSubmited={formSubmited} />
+                        </>
+                    }
                 </section>
             )
         }
