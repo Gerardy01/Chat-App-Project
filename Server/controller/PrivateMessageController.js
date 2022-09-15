@@ -7,6 +7,24 @@ class PrivateMessageController {
     static async createPrivateMessage(req, res, next) {
         try {
 
+            const senderPrivateMessage = await PrivateMessage.find(
+                { members: { $in : [req.body.senderId] } }
+            )
+            
+            let isAvailable = false;
+            if (senderPrivateMessage.length !== 0) {
+                for (let i = 0; i < senderPrivateMessage.length; i++) {
+                    isAvailable = senderPrivateMessage[i].members.find(e => e === req.body.reciverId);
+                    if (isAvailable) {
+                        return res.status(200).json({
+                            result: 'success',
+                            msg: 'private message already exist'
+                        });
+                    }
+                }
+            }
+            
+
             const newPrivateMessage = new PrivateMessage({
                 members: [req.body.senderId, req.body.reciverId]
             });
@@ -23,7 +41,7 @@ class PrivateMessageController {
                 console.log('new conversation creatd');
             });
 
-            res.status(200).json({
+            res.status(201).json({
                 result: 'success',
                 msg: 'new private message created'
             });
