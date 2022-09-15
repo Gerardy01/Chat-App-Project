@@ -33,8 +33,6 @@ body {
 
 
 
-
-
 .submitBtn {
   width: 20%;
   height: 2.5rem;
@@ -69,7 +67,7 @@ body {
   padding: 0px 15px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   overflow: hidden;
@@ -79,18 +77,31 @@ body {
 
   transition: 0.2s;
 
-  background-color: rgb(244, 118, 72);
-}
-.submitBtnLoad:hover {
   background-color: rgb(254, 68, 0);
+  cursor: not-allowed;
 }
 
 
 
-.loadDots {
+.loader {
+  pointer-events: none;
   aspect-ratio: 1 / 1;
-  width: 0.8rem;
+  height: 80%;
 
-  background-color: white;
-  border-radius: 20px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: white;
+
+  animation: load1 0.8s ease infinite;
+}
+
+
+@keyframes load1 {
+  0% {
+    transform: rotate(0turn);
+  }
+
+  100% {
+    transform: rotate(1turn);
+  }
 }

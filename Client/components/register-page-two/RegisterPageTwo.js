@@ -141,9 +141,7 @@ export default function RegisterPageTwo(props) {
 
                 {btnLoading ?
                     <div className={'submitBtnLoad'}>
-                        <div className={'loadDots'} />
-                        <div className={'loadDots'} />
-                        <div className={'loadDots'} />
+                        <div className={'loader'} />
                     </div> :
                     <button type='submit' className={'submitBtn'}>SUBMIT</button>
                 }

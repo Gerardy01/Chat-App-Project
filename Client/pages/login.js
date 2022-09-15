@@ -169,9 +169,7 @@ export default function Login() {
                                 </Link>
                                 {btnLoading ?
                                     <div className={'submitBtnLoad'}>
-                                        <div className={'loadDots'} />
-                                        <div className={'loadDots'} />
-                                        <div className={'loadDots'} />
+                                        <div className={'loader'} />
                                     </div> :
                                     <button type='submit' className={'submitBtn'}>SUBMIT</button>
                                 }
