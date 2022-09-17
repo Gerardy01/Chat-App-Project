@@ -10,7 +10,39 @@ class GroupController {
     }
 
     static async getGroupDetails(req, res, next) {
+        try {
 
+            const group = await Group.findOne(
+                { _id: req.params.groupId }
+            ).catch(err => {
+                return false;
+            });
+
+            if (!group) {
+                return res.status(200).json({
+                    result: 'success',
+                    msg: 'no groups found'
+                });
+            }
+
+            const data = {
+                id: group._id,
+                groupName: group.group_name,
+                groupProfilePict: group.group_profile_picture_url,
+                members: group.group_members
+            }
+
+            res.status(201).json({
+                result: 'success',
+                data: data
+            });
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: err
+            });
+        }
     }
 
     static async createGroup(req, res, next) {
