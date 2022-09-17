@@ -37,7 +37,7 @@ export default function SubmitedCard(props) {
                 </div>
                 <div className={style.submitedCardContent}>
                     <h2>Submited!</h2>
-                    <p>Thank You</p>
+                    <p>Welcome</p>
                 </div>
                 <div className={style.submiedCardFooter}>
                     <Link href={'/login'}>

@@ -95,6 +95,18 @@ body {
   animation: load1 0.8s ease infinite;
 }
 
+.loader2 {
+  pointer-events: none;
+  aspect-ratio: 1 / 1;
+  width: 2rem;
+
+  border-radius: 50%;
+  border: 3px solid rgba(0, 0, 0, 0.082);
+  border-top-color: black;
+
+  animation: load1 0.8s ease infinite;
+}
+
 
 @keyframes load1 {
   0% {
