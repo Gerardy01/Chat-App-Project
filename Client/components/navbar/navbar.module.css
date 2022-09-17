@@ -5,6 +5,7 @@
 
 .navbar {
     width: 100%;
+    max-height: 3.8rem;
 
     display: flex;
     justify-content: space-between;
@@ -70,13 +71,14 @@
 }
 
 .searchMainHolder {
+    width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .input {
-    width: 85%;
+    width: 90%;
     border: none;
 }
 .input:focus {

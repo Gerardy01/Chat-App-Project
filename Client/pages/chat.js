@@ -9,6 +9,7 @@ import jwtDecode from 'jwt-decode';
 
 import Navbar from '../components/navbar/Navbar';
 import ConversationCard from '../components/conversationCard/ConversationCard';
+import MessageCard from '../components/messageCard/MessageCard';
 
 import robotImg from '../public/robot.png';
 
@@ -20,6 +21,9 @@ export default function Chat() {
 
     const [loading, setLoading] = useState(true);
     const [conversationData, setConversationData] = useState([]);
+
+    const [chatOpen, setChatOpen] = useState(false);
+    const [msgData, setMsgData] = useState(null);
 
     useEffect(() => {
         const token = getCookie('token');
@@ -81,6 +85,29 @@ export default function Chat() {
         }
     }, [])
 
+    function handleConverastionClick(conversationData) {
+        setChatOpen(true);
+        fetch(`http://localhost:8000/api/v1/chat/message/${conversationData.isGroup ? 
+            conversationData.groupId :
+            conversationData.privateMessageId
+            }`, {
+            method: 'GET',
+            mode: 'cors'
+        }).then(res => {
+            if (res.status === 204) {
+                setMsgData(0);
+                return
+            }
+
+            res.json().then(data => {
+                setMsgData(data.data);
+            });
+        }).catch(err => {
+            console.log(err);
+            alert("Try Again");
+        });
+    }
+
 
 
     if (loading) {
@@ -121,16 +148,46 @@ export default function Chat() {
                                         <ul className={styles.conversationListHolder}>
                                             {conversationData.map((data, i) => {
                                                 return (
-                                                    <ConversationCard data={data} key={i} />
+                                                    <li key={i} onClick={() => handleConverastionClick(data)} >
+                                                        <ConversationCard data={data} key={i} />
+                                                    </li>
                                                 )
                                             })}
                                         </ul>
                                     </>
                                 }
                             </div>
-                            <div className={styles.messageComponent}>
-                                
-                            </div>
+                            {chatOpen ?
+                                <>
+                                    <div className={styles.messageComponent}>
+                                        <div className={styles.messageHeader}>
+
+                                        </div>
+
+                                        {msgData && msgData !== 0 ? (
+                                            <ul className={styles.messageListHolder}>
+                                                {msgData.map((data, i) => {
+                                                    return (
+                                                        <MessageCard data={data} key={i} />
+                                                    )
+                                                })}
+                                            </ul>
+                                        ) : (
+                                            <div>
+                                                no msg
+                                            </div>
+                                        )}
+
+                                        <div className={styles.messageFooter}>
+                                            
+                                        </div>
+                                    </div>
+                                </> : <>
+                                    <div className={styles.messageComponentClosed}>
+                                        aaa
+                                    </div>
+                                </>
+                            }
                         </div>
                     </div>
                 </section>

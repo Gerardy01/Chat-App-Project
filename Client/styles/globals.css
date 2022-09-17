@@ -7,7 +7,8 @@
 body {
   font-family: 'Poppins', sans-serif;
 
-  background-image: url(../public/swirl-pattern.png);
+  background-image: url(../public/robotBackground.jpg);
+  background-size: 20rem;
 }
 
 .topSideBar {
