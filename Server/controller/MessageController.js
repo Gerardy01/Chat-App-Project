@@ -107,7 +107,13 @@ class MessageController {
                 console.log(data);
                 res.status(200).json({
                     result: 'success',
-                    msg: 'message added'
+                    msg: 'message added',
+                    data: {
+                        id: data._id,
+                        senderId: data.sender_id,
+                        text: data.text,
+                        created: data.createdAt
+                    }
                 });
             });
 
