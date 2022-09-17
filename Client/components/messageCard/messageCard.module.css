@@ -53,6 +53,7 @@
     padding: 5px;
 
     margin-right: 15px;
+    margin-left: 7px;
 }
 .messageBoxReciver {
     max-width: 20rem;
@@ -69,4 +70,12 @@
     padding: 5px;
 
     margin-left: 15px;
+    margin-right: 7px;
+}
+
+.timeStamp {
+    font-size: 0.8rem;
+    color: rgb(156, 156, 156);
+
+    align-self: flex-end;
 }

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import style from './messageCard.module.css';
 import Image from 'next/image';
 
+import { format } from 'timeago.js';
+
 import jwtDecode from 'jwt-decode';
 import getCookie from '../../utils/getCookie';
 
@@ -60,6 +62,7 @@ export default function MessageCard(props) {
             {isSender ?
                 <>
                     <li className={style.messageCardSender}>
+                        <p className={style.timeStamp}>{format(data.created)}</p>
                         <div className={style.messageBoxSender}>
                             <p className={style.messageBoxName}>{userData.name}</p>
                             <p>{data.text}</p>
@@ -91,6 +94,7 @@ export default function MessageCard(props) {
                             <p className={style.messageBoxName}>{userData.name}</p>
                             <p>{data.text}</p>
                         </div>
+                        <p className={style.timeStamp}>{format(data.created)}</p>
                     </li>
                 </>
                 

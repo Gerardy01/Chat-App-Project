@@ -109,18 +109,18 @@ export default function ConversationCard(props) {
                 <>
                     {isGroup ?
                         <>
-                            <div className={style.profilePictHolder}>
-                                <Image 
-                                    src={conversationData.groupProfilePict !== "" ? 
-                                            conversationData.groupProfilePict : 
-                                            unavailableGroupPict
-                                        } 
-                                    alt={'user profie picture'}
-                                    layout='responsive'
-                                    priority={true}
-                                />
-                            </div>
                             <div className={style.conversationCardContent}>
+                                <div className={style.profilePictHolder}>
+                                    <Image 
+                                        src={conversationData.groupProfilePict !== "" ? 
+                                                conversationData.groupProfilePict : 
+                                                unavailableGroupPict
+                                            } 
+                                        alt={'user profie picture'}
+                                        layout='responsive'
+                                        priority={true}
+                                    />
+                                </div>
                                 <div className={style.conversationCardMain}>
                                     <div className={style.groupNameHolder}>
                                         <h3 className={style.groupNameMain}>{conversationData.groupName}</h3>
@@ -128,30 +128,30 @@ export default function ConversationCard(props) {
                                     </div>
                                     <p>{msgData}</p>
                                 </div>
-                                <div className={style.rightSideContent}>
-                                    <p>Time?</p>
-                                </div>
+                            </div>
+                            <div className={style.rightSideContent}>
+                                <p>Time?</p>
                             </div>
                         </> : <>
-                            <div className={style.profilePictHolder}>
-                                <Image 
-                                    src={conversationData.profilePicture !== "" ? 
-                                            conversationData.profilePicture : 
-                                            unknownUser
-                                        } 
-                                    alt={'user profie picture'}
-                                    layout='responsive'
-                                    priority={true}
-                                />
-                            </div>
                             <div className={style.conversationCardContent}>
+                                <div className={style.profilePictHolder}>
+                                    <Image 
+                                        src={conversationData.profilePicture !== "" ? 
+                                                conversationData.profilePicture : 
+                                                unknownUser
+                                            } 
+                                        alt={'user profie picture'}
+                                        layout='responsive'
+                                        priority={true}
+                                    />
+                                </div>
                                 <div className={style.conversationCardMain}>
                                     <h2>{conversationData.name}</h2>
                                     <p>{msgData}</p>
                                 </div>
-                                <div className={style.rightSideContent}>
-                                    <p>Time?</p>
-                                </div>
+                            </div>
+                            <div className={style.rightSideContent}>
+                                <p>Time?</p>
                             </div>
                         </>
                     }
