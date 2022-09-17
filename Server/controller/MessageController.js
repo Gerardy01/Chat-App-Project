@@ -5,6 +5,42 @@ const Group = require('../models/group');
 
 
 class MessageController {
+    static async getLatestMessage(req, res, next) {
+        try {
+
+            const message = await Message.find(
+                { source_id: req.params.sourceId }
+            ).limit(1).sort(
+                { $natural: -1 }
+            );
+            
+            if (message.length === 0) {
+                return res.status(200).json({
+                    result: 'success',
+                    msg: 'no any message'
+                });
+            }
+
+            const data = {
+                id: message[0]._id,
+                text: message[0].text,
+                created: message[0].createdAt
+            }
+            
+            res.status(201).json({
+                result: 'success',
+                data: data
+            });
+
+
+        } catch(err) {
+            res.status(500).json({
+                result: 'failed',
+                msg: err
+            });
+        }
+    }
+
     static async getMessage(req, res, next) {
         try {
 
