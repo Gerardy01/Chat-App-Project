@@ -1,6 +1,7 @@
 const Message = require('../models/message');
 const PrivateMessage = require('../models/privateMessage');
 const Group = require('../models/group');
+const Conversation = require('../models/conversation');
 
 
 
@@ -96,6 +97,36 @@ class MessageController {
                     result: 'failed',
                     msg: 'source not found'
                 });
+            }
+
+            const conversationPrivate = await Conversation.find(
+                { private_message_id: req.body.sourceId }
+            )
+
+            if (conversationPrivate.length !== 0) {
+                conversationPrivate[0].update(
+                    { latest_text: req.body.text }
+                ).then(data => {
+                    console.log(data);
+                })
+            }
+
+            if (conversationPrivate.length === 0) {
+                const conversationGroup = await Conversation.find(
+                    { group_id: req.body.sourceId }
+                )
+
+                if (conversationGroup.length !== 0) {
+                    conversationGroup[0].update(
+                        { latest_text: req.body.text }
+                    ).then(data => {
+                        console.log(data);
+                    })
+                }
+
+                if (conversationGroup.length === 0) {
+                    throw Error('conversation not found');
+                }
             }
 
             const message = new Message({

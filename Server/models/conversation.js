@@ -15,6 +15,9 @@ const Conversation = mongoose.model('Conversation', new mongoose.Schema({
     },
     members: {
         type: Array
+    },
+    latest_text: {
+        type: String
     }
 }, { timestamps: true }));
 
