@@ -175,7 +175,8 @@ export default function Chat() {
         setIsGroup(false);
     }
 
-    function handleSubmitMsg() {
+    function handleSubmitMsg(e) {
+        e.preventDefault();
 
         if (message.length === 0) {
             return
@@ -305,22 +306,22 @@ export default function Chat() {
                                                 </div>
                                             )}
 
-                                            <div className={styles.messageFooter}>
+                                            <form className={styles.messageFooter} onSubmit={e => handleSubmitMsg(e)}>
                                                 <input className={styles.chatInput} 
                                                     placeholder='Message...'
                                                     onChange={e => setMessage(e.target.value)} 
                                                     value={message}
                                                 />
                                                 <div className={styles.footerRight}>
-                                                    <div className={styles.sendBtn}
-                                                        onClick={handleSubmitMsg}
+                                                    <button className={styles.sendBtn}
+                                                        type='submit'
                                                     >
                                                         <div className={styles.sendImg}>
                                                             <Image src={sendImg} layout='responsive' />
                                                         </div>
-                                                    </div>
+                                                    </button>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     )}
                                 </> : <>

@@ -205,6 +205,9 @@
     align-items: center;
 
     transition: 0.15s;
+
+    background-color: transparent;
+    border: none;
 }
 .sendBtn:hover {
     background-color: rgb(241, 241, 241);
