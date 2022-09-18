@@ -35,7 +35,8 @@ class PrivateMessageController {
             const newConversation = new Conversation({
                 is_group: false,
                 private_message_id: newPrivateMessage._id,
-                members: [req.body.senderId]
+                members: [req.body.senderId],
+                latest_text: ""
             });
             newConversation.save().then(data => {
                 console.log('new conversation creatd');

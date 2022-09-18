@@ -25,7 +25,9 @@ class ChatController {
                     data.push({
                         conversationId: e.id,
                         isGroup: e.is_group,
-                        groupId: e.group_id
+                        groupId: e.group_id,
+                        latestText: e.latest_text,
+                        updated: e.updatedAt
                     });
                 }
 
@@ -36,7 +38,9 @@ class ChatController {
                         conversationId: e.id,
                         isGroup: e.is_group,
                         privateMessageId: e.private_message_id,
-                        displayedUserId: displayedUser
+                        displayedUserId: displayedUser,
+                        latestText: e.latest_text,
+                        updated: e.updatedAt
                     })
                 }
             });

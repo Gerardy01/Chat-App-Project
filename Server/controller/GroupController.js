@@ -60,7 +60,8 @@ class GroupController {
             const newConversation = new Conversation({
                 is_group: true,
                 group_id: newGroup._id,
-                members: req.body.members
+                members: req.body.members,
+                latest_text: ""
             });
             newConversation.save().then(data => {
                 console.log(data);
