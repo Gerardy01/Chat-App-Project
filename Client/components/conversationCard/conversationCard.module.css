@@ -8,6 +8,7 @@
     height: 5rem;
 
     border-bottom: 3px solid black;
+    border-right: 3px solid black;
     padding: 10px 10px;
 
     cursor: pointer;
@@ -15,6 +16,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: white;
 }
 .conversationCard:hover {
     background-color: rgb(244, 255, 244);
@@ -23,8 +25,8 @@
 
 
 .profilePictHolder {
-    aspect-ratio: 1 / 1;
-    height: 100%;
+    min-width: 3.7rem;
+    min-height: 3.7rem;
 
     border-radius: 50%;
     overflow: hidden;
@@ -36,7 +38,7 @@
 
 .conversationCardContent {
     width: 80%;
-    height: 80%;
+    height: 100%;
     
     display: flex;
     justify-content: space-between;
@@ -45,22 +47,53 @@
 
 
 .conversationCardMain {
-    width: 85%;
-    height: 100%;
+    width: 82%;
+    height: 80%;
+
+    align-self: center;
+    padding-left: 10px;
 }
 .conversationCardMain h2 {
+    width: 100%;
+    font-size: 1rem;
+    font-weight: normal;
+
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.conversationCardMain h3 {
     font-size: 1rem;
     font-weight: normal;
 }
+
 .conversationCardMain p {
+    width: 100%;
     font-size: 0.8rem;
     color: rgb(156, 156, 156);
+
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.groupNameHolder {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.groupNameMain {
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 5px;
 }
 
 
 
 .rightSideContent {
-    width: 15%;
+    width: 12%;
     height: 100%;
 }
 .rightSideContent {

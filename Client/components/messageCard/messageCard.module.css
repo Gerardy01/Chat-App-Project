@@ -1,0 +1,81 @@
+
+
+
+/* CSS Line */
+
+.messageCard {
+    width: 100%;
+    list-style: none;
+
+    margin: 15px 0px;
+
+    display: flex;
+    justify-content: flex-start;
+}
+
+.messageCardSender {
+    width: 100%;
+    list-style: none;
+
+    margin: 15px 0px;
+    
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
+.profilePictHolder {
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 3px solid black;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.messageBoxName {
+    font-size: 0.8rem;
+    color: rgb(192, 125, 2);
+}
+
+.messageBoxSender {
+    max-width: 20rem;
+    height: fit-content;
+
+    border: 3px solid black;
+    background-color: rgb(245, 252, 183);
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    padding: 5px;
+
+    margin-right: 15px;
+    margin-left: 7px;
+}
+.messageBoxReciver {
+    max-width: 20rem;
+    height: fit-content;
+
+    border: 3px solid black;
+    background-color: white;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 5px;
+
+    margin-left: 15px;
+    margin-right: 7px;
+}
+
+.timeStamp {
+    font-size: 0.8rem;
+    color: rgb(156, 156, 156);
+
+    align-self: flex-end;
+}

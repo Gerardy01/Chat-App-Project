@@ -7,7 +7,8 @@
 body {
   font-family: 'Poppins', sans-serif;
 
-  background-image: url(../public/swirl-pattern.png);
+  background-image: url(../public/robotBackground.jpg);
+  background-size: 20rem;
 }
 
 .topSideBar {
@@ -116,4 +117,17 @@ body {
   100% {
     transform: rotate(1turn);
   }
+}
+
+
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(179, 179, 179);
+  border-radius: 20px;
 }
