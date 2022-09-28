@@ -10,6 +10,7 @@ import jwtDecode from 'jwt-decode';
 import Navbar from '../components/navbar/Navbar';
 import ConversationCard from '../components/conversationCard/ConversationCard';
 import MessageCard from '../components/messageCard/MessageCard';
+import LoadingScreen from '../components/loadingScreen/LoadingScreen';
 
 import robotImg from '../public/robot.png';
 import unknownUser from '../public/unknownUser.png';
@@ -97,11 +98,11 @@ export default function Chat() {
         }
     }, [])
 
-    useEffect(() => {
-        if (loading) {
+    // useEffect(() => {
+    //     if (loading) {
 
-        }
-    }, [loading])
+    //     }
+    // }, [loading])
 
 
 
@@ -218,7 +219,7 @@ export default function Chat() {
     
 
     if (loading) {
-        return <div>loading</div>
+        return <LoadingScreen />
     }
 
     function renderedComponent() {

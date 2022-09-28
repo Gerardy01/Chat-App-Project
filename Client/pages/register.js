@@ -10,6 +10,7 @@ import getCookie from '../utils/getCookie';
 import RegisterPageOne from '../components/register-page-one/registerPageOne';
 import RegisterPageTwo from '../components/register-page-two/RegisterPageTwo';
 import SubmitedCard from '../components/submited-card/SubmitedCard';
+import LoadingScreen from '../components/loadingScreen/LoadingScreen';
 
 
 
@@ -74,7 +75,7 @@ export default function Register() {
 
 
     if (loading) {
-        return <div>loading</div>
+        return <LoadingScreen />
     }
 
     function renderedComponent() {

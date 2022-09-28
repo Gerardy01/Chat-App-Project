@@ -6,6 +6,8 @@ import styles from '../styles/login.module.css';
 import { isMobile } from 'react-device-detect'
 import getCookie from '../utils/getCookie';
 
+import LoadingScreen from '../components/loadingScreen/LoadingScreen';
+
 
 
 export default function Login() {
@@ -129,7 +131,7 @@ export default function Login() {
 
 
     if (loading) {
-        return <div>loading</div>
+        return <LoadingScreen />
     }
 
     function renderedComponent() {
