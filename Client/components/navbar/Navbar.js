@@ -8,7 +8,7 @@ import close from '../../public/close.png';
 
 
 
-export default function Navbar() {
+export default function Navbar(props) {
 
     const [searchOpen, setSearchOpen] = useState(false);
     const [closeActive, setCloseActive] = useState(false);
@@ -32,7 +32,7 @@ export default function Navbar() {
 
     return (
         <section className={style.navbar}>
-            <div className={style.hamMenuHolder}>
+            <div className={style.hamMenuHolder} onClick={() => props.handleNavMenuClick()}>
                 <Image src={hamMenu} layout='responsive' />
             </div>
             <div className={searchOpen ? style.searchBox : style.searchBoxClosed}>

@@ -1,0 +1,60 @@
+
+
+
+/* CSS Line */
+
+
+.navMenu {
+    width: 100%;
+    height: 100%;
+    
+    position: absolute;
+
+    background-color: white;
+
+    z-index: 10;
+
+    transition: 0.2s;
+}
+.navMenuDisabled {
+    width: 100%;
+    height: 0%;
+    
+    position: absolute;
+
+    background-color: white;
+    overflow: hidden;
+
+    z-index: 10;
+
+    transition: 0.2s;
+}
+
+
+
+.navMenuHeader {
+    width: 100%;
+    height: 3.77rem;
+
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+
+    border-bottom: 5px solid black;
+}
+
+.backBtnHolder {
+    width: 2rem;
+
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+

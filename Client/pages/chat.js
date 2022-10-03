@@ -11,6 +11,7 @@ import Navbar from '../components/navbar/Navbar';
 import ConversationCard from '../components/conversationCard/ConversationCard';
 import MessageCard from '../components/messageCard/MessageCard';
 import LoadingScreen from '../components/loadingScreen/LoadingScreen';
+import NavMenu from '../components/nav-menu/NavMenu';
 
 import robotImg from '../public/robot.png';
 import unknownUser from '../public/unknownUser.png';
@@ -27,6 +28,7 @@ export default function Chat() {
     const [conversationData, setConversationData] = useState([]);
 
     const [chatOpen, setChatOpen] = useState(false);
+    const [navMenuActive, setNavMenuActive] = useState(true);
     const [msgData, setMsgData] = useState(null);
     const [userData, setUserData] = useState(null);
 
@@ -216,6 +218,9 @@ export default function Chat() {
         });
     }
 
+    function handleNavMenuClick() {
+        setNavMenuActive(!navMenuActive)
+    }
     
 
     if (loading) {
@@ -236,7 +241,8 @@ export default function Chat() {
                         </div>
                         <div className={styles.chatPageContentMain}>
                             <div className={styles.conversationListComponent}>
-                                <Navbar />
+                                <NavMenu navMenuActive={navMenuActive} handleNavMenuClick={handleNavMenuClick} />
+                                <Navbar handleNavMenuClick={handleNavMenuClick} />
                                 {conversationData.length === 0 ?
                                     <>
                                         <div className={styles.conversationLoading}>
@@ -302,9 +308,15 @@ export default function Chat() {
                                                     })}
                                                 </ul>
                                             ) : (
-                                                <div>
-                                                    no msg
-                                                </div>
+                                                <>
+                                                    {msgData == 0 ?
+                                                        <div>
+                                                            no msg
+                                                        </div> : <div>
+                                                            loading
+                                                        </div>
+                                                    }
+                                                </>
                                             )}
 
                                             <form className={styles.messageFooter} onSubmit={e => handleSubmitMsg(e)}>
