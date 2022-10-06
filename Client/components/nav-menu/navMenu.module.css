@@ -10,11 +10,14 @@
     
     position: absolute;
 
-    background-color: white;
+    background-color: #f2f2f2;
 
     z-index: 10;
 
-    transition: 0.2s;
+    transition: 0.3s;
+
+    display: flex;
+    flex-direction: column;
 }
 .navMenuDisabled {
     width: 100%;
@@ -27,7 +30,7 @@
 
     z-index: 10;
 
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 
@@ -42,12 +45,77 @@
     align-items: center;
 
     border-bottom: 5px solid black;
+    background-color: white;
 }
 
 .backBtnHolder {
     width: 2rem;
 
     cursor: pointer;
+}
+
+
+
+
+
+.navMenuItemHolder {
+    width: 100%;
+}
+
+
+
+.navMenuItem {
+    list-style: none;
+    width: 100%;
+
+    padding: 15px;
+    border-bottom: 3px solid black;
+
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+    background-color: white;
+}
+.navMenuItem:hover {
+    background-color: rgb(244, 255, 244);
+}
+
+
+
+.profilePictHolder {
+    width: 4rem;
+    
+    overflow: hidden;
+    border-radius: 50%;
+    
+    border: 3px solid black;
+}
+
+.profileName {
+    margin-left: 20px;
+}
+
+
+.logoutBtn {
+    width: 100%;
+
+    border-bottom: 3px solid black;
+
+    padding: 15px;
+
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    background-color: white;
+}
+.logoutBtn:hover {
+    background-color: red;
+}
+.logoutBtn:hover > .logoutText {
+    text-decoration: underline;
+    color: white;
 }
 
 
