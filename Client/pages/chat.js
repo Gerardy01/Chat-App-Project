@@ -25,10 +25,11 @@ export default function Chat() {
     const navigate = useRouter();
 
     const [loading, setLoading] = useState(true);
+    const [msgLoading, setMsgLoading] = useState(false);
     const [conversationData, setConversationData] = useState([]);
 
     const [chatOpen, setChatOpen] = useState(false);
-    const [navMenuActive, setNavMenuActive] = useState(true);
+    const [navMenuActive, setNavMenuActive] = useState(false);
     const [msgData, setMsgData] = useState(null);
     const [userData, setUserData] = useState(null);
 
@@ -109,6 +110,8 @@ export default function Chat() {
 
 
     function handleConverastionClick(conversationData) {
+        setMsgLoading(true);
+        setMsgData(0)
         setChatOpen(true);
         console.log(conversationData);
         fetch(`http://localhost:8000/api/v1/chat/message/${conversationData.isGroup ? 
@@ -120,11 +123,13 @@ export default function Chat() {
         }).then(res => {
             if (res.status === 204) {
                 setMsgData(0);
+                setMsgLoading(false);
                 return
             }
 
             res.json().then(data => {
                 setMsgData(data.data);
+                setMsgLoading(false);
             });
         }).catch(err => {
             console.log(err);
@@ -243,6 +248,7 @@ export default function Chat() {
                             <div className={styles.conversationListComponent}>
                                 <NavMenu navMenuActive={navMenuActive} handleNavMenuClick={handleNavMenuClick} />
                                 <Navbar handleNavMenuClick={handleNavMenuClick} />
+                                <div className={navMenuActive ? styles.navMenuOverlayActive : styles.navMenuOverlayDisabled} />
                                 {conversationData.length === 0 ?
                                     <>
                                         <div className={styles.conversationLoading}>
@@ -299,7 +305,7 @@ export default function Chat() {
                                                 </div>
                                             </div>
 
-                                            {msgData && msgData !== 0 ? (
+                                            {msgData !== 0 && !msgLoading ? (
                                                 <ul className={styles.messageListHolder}>
                                                     {msgData.map((data, i) => {
                                                         return (
@@ -309,7 +315,7 @@ export default function Chat() {
                                                 </ul>
                                             ) : (
                                                 <>
-                                                    {msgData == 0 ?
+                                                    {msgData == 0 && !msgLoading ?
                                                         <div>
                                                             no msg
                                                         </div> : <div>

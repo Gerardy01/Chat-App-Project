@@ -48,6 +48,33 @@
 
 
 
+.navMenuOverlayActive {
+    width: 100%;
+    height: 100%;
+
+    background-color: black;
+    opacity: 0.5;
+
+    position: absolute;
+    z-index: 5;
+
+    transition: 0.1s;
+}
+.navMenuOverlayDisabled {
+    width: 100%;
+    height: 0%;
+
+    background-color: black;
+    opacity: 0;
+
+    position: absolute;
+    z-index: 5;
+
+    transition: 0.1s;
+}
+
+
+
 .conversationListHolder {
     width: 100%;
     height: 100%;
