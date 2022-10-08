@@ -21,6 +21,7 @@
 
 .hamMenuHolder {
     width: 1.5rem;
+    cursor: pointer;
 }
 
 .searchHolder {

@@ -53,7 +53,7 @@ export default function MessageCard(props) {
 
     if (!userData || !data) {
         return (
-            <div>loading</div>
+            <div>skeleton loading</div>
         )
     }
 
