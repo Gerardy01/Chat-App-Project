@@ -289,7 +289,7 @@ class UserController {
             const user = await User.findByIdAndUpdate(
                 { _id: req.tokenData.id },
                 { name: req.body.newName }
-            )
+            );
 
             if (!user) {
                 return res.status(417).json({
@@ -298,9 +298,25 @@ class UserController {
                 });
             }
 
+            const updatedUser = await User.findOne(
+                { _id: req.tokenData.id }
+            );
+
+            const payLoad = {
+                id: updatedUser.id,
+                name: updatedUser.name,
+                profile_picture: updatedUser.profile_picture_url,
+                birth: updatedUser.birth
+            }
+
+            const accessToken = jwt.sign(payLoad, process.env.ACCESS_TOKEN_SECRET, {
+                expiresIn: '12h'
+            });
+            
             res.status(200).json({
                 result: 'success',
-                msg: 'name has been changed'
+                msg: 'name has been changed',
+                access_token: accessToken
             });
 
         } catch(err) {

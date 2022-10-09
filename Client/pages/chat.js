@@ -12,6 +12,7 @@ import ConversationCard from '../components/conversationCard/ConversationCard';
 import MessageCard from '../components/messageCard/MessageCard';
 import LoadingScreen from '../components/loadingScreen/LoadingScreen';
 import NavMenu from '../components/nav-menu/NavMenu';
+import InputNameOverlay from '../components/input-name-overlay/InputNameOverlay';
 
 import robotImg from '../public/robot.png';
 import unknownUser from '../public/unknownUser.png';
@@ -30,6 +31,7 @@ export default function Chat() {
 
     const [chatOpen, setChatOpen] = useState(false);
     const [navMenuActive, setNavMenuActive] = useState(false);
+    const [inputNameOverlay, setInputNameOverlay] = useState(false);
     const [msgData, setMsgData] = useState(null);
     const [userData, setUserData] = useState(null);
 
@@ -98,6 +100,10 @@ export default function Chat() {
                 console.log(err);
                 alert("Try Again");
             });
+
+            if (decode.name === "") {
+                setInputNameOverlay(true);
+            }
         }
     }, [])
 
@@ -236,6 +242,7 @@ export default function Chat() {
         if (!isMobile) {
             return (
                 <section className={styles.chatPage}>
+                    <InputNameOverlay inputNameOverlay={inputNameOverlay} setInputNameOverlay={setInputNameOverlay} />
                     <div className={styles.chatPageContent}>
                         <div className='topSideBar' style={{ backgroundColor: 'lightgreen' }}>
                             <div className='btnDecoyHolder'>

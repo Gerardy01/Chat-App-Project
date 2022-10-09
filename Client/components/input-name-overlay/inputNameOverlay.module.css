@@ -1,0 +1,62 @@
+
+
+
+/* CSS Line */
+
+.inputNameOverlayActive {
+    width: 100vw;
+    height: 100vh;
+
+    position: absolute;
+    top: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 10;
+}
+.inputNameOverlayDisabled {
+    display: none;
+}
+
+
+
+.inputNamePage {
+    width: 31rem;
+
+    background-color: white;
+    overflow: hidden;
+
+    padding: 1.5rem;
+
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+
+    border: 3px solid black;
+    border-radius: 4px;
+
+    margin: 2rem 0px;
+}
+
+
+
+.btnHolder {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+
