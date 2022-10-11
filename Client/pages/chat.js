@@ -32,7 +32,7 @@ export default function Chat() {
     const [chatOpen, setChatOpen] = useState(false);
     const [navMenuActive, setNavMenuActive] = useState(false);
     const [inputNameOverlay, setInputNameOverlay] = useState(false);
-    const [msgData, setMsgData] = useState(null);
+    const [msgData, setMsgData] = useState(0);
     const [userData, setUserData] = useState(null);
 
     const [isGroup, setIsGroup] = useState(false);
@@ -219,6 +219,11 @@ export default function Chat() {
             }
 
             res.json().then(data => {
+                console.log(data.data)
+                if (msgData === 0) {
+                    setMsgData([data.data]);
+                    return
+                }
                 setMsgData(msgData.concat(data.data))
                 setMessage("");
             })

@@ -72,7 +72,7 @@ export default function ConversationCard(props) {
                 });
             }
 
-            const option = { hour: '2-digit' }
+            const option = { hour: '2-digit', minute: '2-digit' }
             const time = new Date(data.updated).toLocaleDateString(undefined, option);
             const sparatedTime = time.split(', ');
             setMsgTime(sparatedTime[1]);
