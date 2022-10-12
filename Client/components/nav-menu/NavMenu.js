@@ -39,8 +39,8 @@ export default function NavMenu(props) {
                         <p className={style.profileName}>Name</p>
                     </li>
                 </Link>
-                <li className={style.navMenuItem}>Friends</li>
-                <li className={style.navMenuItem}>Groups</li>
+                <li className={style.navMenuItem} onClick={() => props.handleFriendsClick()}>Friends</li>
+                <li className={style.navMenuItem} onClick={() => props.handleGroupsClick()}>Groups</li>
                 <li className={style.logoutBtn} onClick={handleLogout}><p className={style.logoutText}>Logout</p></li>
             </ul>
         </div>

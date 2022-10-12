@@ -18,9 +18,18 @@ export default function ConversationCard(props) {
     const [isGroup, setIsGroup] = useState(null);
     const [groupMemberCount, setGroupMemberCount] = useState(0);
 
+    const [conversationActive, setConversationActive] = useState(false);
+
     useEffect(() => {
         if (props) {
+
             setData(props.data);
+            
+            if (props.clickedIndex === props.index) {
+                setConversationActive(true);
+            } else {
+                setConversationActive(false);
+            }
         }
     }, [props])
 
@@ -89,7 +98,7 @@ export default function ConversationCard(props) {
     }, [conversationData])
 
     return (
-        <div className={style.conversationCard}>
+        <div className={conversationActive ? style.conversationCardActive : style.conversationCard}>
             {conversationData && (
                 <>
                     {isGroup ?

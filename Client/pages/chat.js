@@ -13,6 +13,7 @@ import MessageCard from '../components/messageCard/MessageCard';
 import LoadingScreen from '../components/loadingScreen/LoadingScreen';
 import NavMenu from '../components/nav-menu/NavMenu';
 import InputNameOverlay from '../components/input-name-overlay/InputNameOverlay';
+import FriendsOverlay from '../components/friends-overlay/FriendsOverlay';
 
 import robotImg from '../public/robot.png';
 import unknownUser from '../public/unknownUser.png';
@@ -31,6 +32,8 @@ export default function Chat() {
 
     const [chatOpen, setChatOpen] = useState(false);
     const [navMenuActive, setNavMenuActive] = useState(false);
+    const [friendsActive, setFriendsActive] = useState(false);
+    const [groupsActive, setGroupsActive] = useState(false);
     const [inputNameOverlay, setInputNameOverlay] = useState(false);
     const [msgData, setMsgData] = useState(0);
     const [userData, setUserData] = useState(null);
@@ -41,6 +44,9 @@ export default function Chat() {
 
     const [userId, setUserId] = useState(null);
     const [sourceId, setSourceId] = useState(null);
+
+    // additional Desktop
+    const [clickedIndex, setClickedIndex] = useState(null);
 
     useEffect(() => {
         const token = getCookie('token');
@@ -115,11 +121,13 @@ export default function Chat() {
 
 
 
-    function handleConverastionClick(conversationData) {
+    function handleConverastionClick(conversationData, clickedIndex) {
         setMsgLoading(true);
         setMsgData(0)
         setChatOpen(true);
-        console.log(conversationData);
+
+        setClickedIndex(clickedIndex); // additional desktop
+
         fetch(`http://localhost:8000/api/v1/chat/message/${conversationData.isGroup ? 
             conversationData.groupId :
             conversationData.privateMessageId
@@ -192,7 +200,9 @@ export default function Chat() {
     function handleSubmitMsg(e) {
         e.preventDefault();
 
-        if (message.length === 0) {
+        const onlySpaces = message.trim().length === 0;
+        
+        if (message.length === 0 || onlySpaces) {
             return
         }
 
@@ -219,7 +229,6 @@ export default function Chat() {
             }
 
             res.json().then(data => {
-                console.log(data.data)
                 if (msgData === 0) {
                     setMsgData([data.data]);
                     return
@@ -235,7 +244,15 @@ export default function Chat() {
     }
 
     function handleNavMenuClick() {
-        setNavMenuActive(!navMenuActive)
+        setNavMenuActive(!navMenuActive);
+    }
+
+    function handleFriendsClick() {
+        setFriendsActive(!friendsActive);
+    }
+
+    function handleGroupsClick() {
+        setGroupsActive(!groupsActive);
     }
     
 
@@ -258,7 +275,13 @@ export default function Chat() {
                         </div>
                         <div className={styles.chatPageContentMain}>
                             <div className={styles.conversationListComponent}>
-                                <NavMenu navMenuActive={navMenuActive} handleNavMenuClick={handleNavMenuClick} />
+                                <FriendsOverlay handleFriendsClick={handleFriendsClick} friendsActive={friendsActive} />
+                                <NavMenu
+                                    navMenuActive={navMenuActive} 
+                                    handleNavMenuClick={handleNavMenuClick}
+                                    handleFriendsClick={handleFriendsClick}
+                                    handleGroupsClick={handleGroupsClick}
+                                />
                                 <Navbar handleNavMenuClick={handleNavMenuClick} />
                                 <div className={navMenuActive ? styles.navMenuOverlayActive : styles.navMenuOverlayDisabled} />
                                 {conversationData.length === 0 ?
@@ -280,8 +303,8 @@ export default function Chat() {
                                         <ul className={styles.conversationListHolder}>
                                             {conversationData.map((data, i) => {
                                                 return (
-                                                    <li key={i} onClick={() => handleConverastionClick(data)} >
-                                                        <ConversationCard data={data} key={i} />
+                                                    <li key={i} onClick={() => handleConverastionClick(data, i)} >
+                                                        <ConversationCard data={data} index={i} clickedIndex={clickedIndex} />
                                                     </li>
                                                 )
                                             })}
